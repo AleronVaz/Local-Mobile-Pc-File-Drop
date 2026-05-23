@@ -3,19 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Local Drop Portal</title>
+    <title>Local Mobile Drop Portal</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-    <h1>📱 Local File Drop Portal Test</h1>
-    <p>Testing Routing</p>
+<body data-theme="light">
 
-    <!-- enctype="multipart/form-data" is what lets us stream binary file blocks safely -->
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="dropped_file">
-        <br><br>
-        <button type="submit">Test Drop File</button>
-    </form>
-    
+    <!-- Ambient Heartbeat Background Waves -->
+    <div class="pulse-container">
+        <div class="pulse-wave wave-1"></div>
+        <div class="pulse-wave wave-2"></div>
+        <div class="pulse-wave wave-3"></div>
+    </div>
+
+    <!-- Header Controls Container -->
+    <header class="control-header">
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+            <!-- Moon Icon (Dark Mode Option) -->
+            <svg class="icon moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <!-- Sun Icon (Light Mode Option) -->
+            <svg class="icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.72" x2="5.64" y2="18.3"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </button>
+        
+        <button id="info-open" class="icon-btn" aria-label="Open Info App">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        </button>
+    </header>
+
+    <!-- TITLE of CARD -->
+    <main class="portal-card">
+        <div class="brand-header">
+            <span class="pulse-dot"></span>
+            <h1>Local Drop</h1>
+            <p>Wireless Local Asset Portal</p>
+        </div>
+
+        <!-- UPLOAD FORM -->
+        <form id="upload-form" enctype="multipart/form-data">
+            <!-- Native input is completely hidden visually but clicked via JS proxy -->
+
+            <input type="file" name="dropped_file" id="file-input" class="hidden-input">
+            
+            <!-- Giant Responsive Touch Target Interface -->
+            <label for="file-input" class="drop-zone-target" id="drop-zone">
+                <div class="target-content">
+                    <div class="icon-wrap">
+                        <svg class="upload-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path><polyline points="16 16 12 12 8 16"></polyline></svg>
+                    </div>
+                    <span class="action-text" id="status-text">Tap to Drop Assets</span>
+                    <span class="sub-text" id="file-name-display">Supports photos, videos, and local docs</span>
+                </div>
+            </label>
+
+            <!-- Dynamic Color-Shifting Progress Pipeline Component -->
+            <div class="progress-pipeline idles" id="progress-container">
+                <div class="progress-track">
+                    <div class="progress-bar-fill" id="progress-bar"></div>
+                </div>
+                <div class="progress-metrics">
+                    <span id="percent-display">0%</span>
+                </div>
+            </div>
+
+            <button type="submit" class="action-submit-btn" id="submit-btn" disabled>Initialize Transfer</button>
+        </form>
+    </main>
+
+    <!-- Info Overlay (Circular Expansion Panel Component) -->
+    <div class="info-overlay-panel" id="info-overlay">
+        <button id="info-close" class="icon-btn close-btn" aria-label="Close Panel">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        
+        <div class="overlay-content">
+            <h2>About Local Drop</h2>
+            <p class="service-description">
+                LocalDrop is a zero-dependency, localized ad-hoc file pipeline designed to instantly transfer data from mobile environments and stream them straight into your pc storage directory without hitting third-party external cloud networks.
+            </p>
+            
+            <div class="developer-card">
+                <h3>Created By</h3>
+                <p class="dev-name">Aleron Vaz</p>
+                <span class="dev-tag">BCA Student</span>
+            </div>
+
+            <div class="social-links-grid">
+                <a href="https://github.com/AleronVaz/Local-Mobile-Pc-File-Drop.git" target="_blank" class="social-card github">
+                    <span>Source Repository</span>
+                </a>
+                <a href="https://linkedin.com/in/aleronvaz" target="_blank" class="social-card linkedin">
+                    <span>Professional Portfolio</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Footer Frame -->
+    <footer class="app-footer">
+        <p>Engineered locally by <strong>Aleron Vaz</strong> &copy; 2026</p>
+        <p class="sub-footer-text">Secure Network Ad-hoc File Stream</p>
+    </footer>
+
+    <!-- Hook JavaScript logic module from static files directory -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
