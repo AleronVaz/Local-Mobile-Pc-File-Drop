@@ -1,29 +1,58 @@
-# 📱 Local Network File Drop
+# 📱 LocalDrop: Ad-Hoc Local Network File Pipeline
 
-A lightweight utility to transfer photos, videos, and files from a mobile phone straight to a PC over a local Wi-Fi network. Because it transfers data entirely within your home network, it uses zero internet bandwidth and offers maximum transfer speeds.
+A high-performance, private utility designed to instantly transfer photos, videos, and files from a mobile phone straight to a PC over a local Wi-Fi network. Because it moves data entirely within your home router gateway, it uses **zero internet bandwidth**, and uses no internet and speed is as fast as wifi hardware.
 
-## 🧭 The Plan
-The goal is to run a local backend server on the PC that generates a scannable QR code. When scanned by a phone on the same Wi-Fi network, it will open a simple web page where users can browse their mobile files and drop them straight onto the PC desktop.
+---
 
-## 🛠️ Tech Stack & Progress
+## ✨ Features
 
-### Implemented So Far
-- **Core Language:** Python 3
-- **Networking:** Python's standard `socket` library (used to dynamically find the PC's real local Wi-Fi IP address).
+* **Dynamic Network Discovery:** Automatically maps out your PC's real network hardware interface card to locate its private IP address, ignoring confusing virtual machines or VPN adapters.
+* **On-the-Fly QR Matrices:** Auto-generates scannable network endpoints inside your terminal via text blocks, alongside a high-res fallback PNG image file.
+* **AirDrop Mobile Aesthetic:** Mobile First Friendly Design, Dynamic CSS.
+* **Zero-Refresh Network Streams:** You can drop file after file rapidly without your mobile browser crashing or forcing a page reload.
+* **Color-Shifting Progress Pipeline:** Tracks binary byte streaming over your router in real time, expanding a custom progress bar that shifts colors from a muted neutral gray to an active green on completion.
+* **Automatic System Configuration:** Reads your Windows profile paths on startup to automatically generate a designated `Mobile_Files` folder right inside your local **Downloads** directory.
+* **Secure File Sanitation:** Cleans Files being uploaded before saving.
 
-### Planned / Upcoming Tech
-- **Backend Server:** Flask (to host the web server and handle incoming file streams).
-- **QR Generation:** `qrcode` & `pillow` (to dynamically convert the local URL into a scannable terminal image).
-- **Frontend Portal:** HTML5 & Responsive CSS (to tap into native mobile file managers and handle multi-part file uploads).
+---
+## 🛠️ Tech Stack
 
-## ⚙️ Current Setup & Testing
+* **Backend Engine:** Python 3
+* **Web Server Architecture:** Flask
+* **Networking Modules:** Standard `socket` library utilizing connectionless UDP handshakes.
+* **Image Processing Engine:** `qrcode` matrix rendering & `pillow` (PIL) for fallback asset compilation.
+* **Security Middleware:** `werkzeug.utils.secure_filename` to clean files.
+* **Frontend Portal:** HTML5 layouts, responsive CSS3, and raw Asynchronous Vanilla JavaScript utilizing `XMLHttpRequest` lifecycle listeners for precise chunk-by-chunk progress tracking.
+
+---
+
+## 🧠 How the Pipeline Works
+
+```text
+[Phone Storage] ──(Native File Picker)──> [Mobile Browser Engine] 
+                                                    │
+                                           (Wi-Fi Binary Stream)
+                                                    │
+                                                    ▼
+                                            [Router Gateway]
+                                                    │
+                                                    ▼
+                                           [Windows Port 5000]
+                                                    │
+                                                    ▼
+       [Flask Server] ──(secure_filename)──> [Python Disk IO] ──> [Downloads/Mobile_Files/]
+
+## 🚀 Installation & Usage Instructions
+
+---
+
 
 ### Prerequisites
-Make sure both your PC and mobile device are connected to the exact same Wi-Fi router.
+Make sure both your host computer and your mobile device are actively connected to the **exact same Wi-Fi router network** or access point.
 
-### Running the Current Build
-1. Clone the repository and navigate inside:
-   
+### 1. Clone & Organize the Workspace
+Clone your repository and verify your file directory layout matches the standard Flask blueprint:
+
 ```bash
-   git clone <your-repository-url>
-   cd local-file-drop
+git clone [https://github.com/AleronVaz/Local-Mobile-Pc-File-Drop.git](https://github.com/AleronVaz/Local-Mobile-Pc-File-Drop.git)
+cd Local-Mobile-Pc-File-Drop
