@@ -1,8 +1,18 @@
 import socket
 import qrcode 
-from flask import Flask, render_template, request  
+from flask import Flask, render_template, request
+from werkzeug.utils import secure_filename
+import os  
 
 app = Flask(__name__)
+
+#Storing in Downloads/Mobile_Files
+DOWNLOADS_PATH = os.path.join(os.path.expanduser("~"), "Downloads")
+UPLOAD_FOLDER = os.path.join(DOWNLOADS_PATH, "Mobile_Files")
+
+# Create the Mobile_Files folder if it doesn't exist
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 
 def get_local_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -20,8 +30,22 @@ def get_local_ip():
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_portal():
     if request.method == 'POST':
-        print("\n📥 Phone sent data (POST)!")
-        return "Success!"
+        if 'dropped_file' not in request.files:
+            return "Error: No file container received. Check your HTML form input name.", 400
+            
+        file = request.files['dropped_file']
+        
+        if file.filename == '':
+            return "Error: No file chosen. Go back and select an object.", 400
+            
+        if file:
+            #Clean the filename
+            filename = secure_filename(file.filename)        
+            final_destination = os.path.join(UPLOAD_FOLDER, filename)
+            file.save(final_destination)
+            
+            print(f"\n📥 SUCCESS: Wrote '{filename}' straight into Downloads/Mobile_Files/")
+            return f"🎉 File '{filename}' successfully dropped to your PC!"
         
     elif request.method == 'GET':
         print("\n📱 Phone requested the page (GET)!")
@@ -54,7 +78,6 @@ if __name__ == "__main__":
     img.save("phone_connect_qr.png")
     print("\n💾 Backup QR code image saved to your directory as: 'phone_connect_qr.png'\n")
 
-    
     print("Starting Server\n")
     # host='0.0.0.0' tells the OS to listen to incoming signals from the local Wi-Fi network
     app.run(host='0.0.0.0', port=5000)
