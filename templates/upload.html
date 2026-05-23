@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Drop Portal</title>
+</head>
+<body>
+    <h1>📱 Local File Drop Portal Test</h1>
+    <p>Testing Routing</p>
+
+    <!-- enctype="multipart/form-data" is what lets us stream binary file blocks safely -->
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="dropped_file">
+        <br><br>
+        <button type="submit">Test Drop File</button>
+    </form>
+    
+</body>
+</html>

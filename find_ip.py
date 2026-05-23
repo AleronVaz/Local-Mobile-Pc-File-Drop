@@ -1,5 +1,8 @@
 import socket
 import qrcode 
+from flask import Flask, render_template, request  
+
+app = Flask(__name__)
 
 def get_local_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -13,10 +16,21 @@ def get_local_ip():
         s.close()
     return local_ip
 
+@app.route('/')
+@app.route('/upload', methods=['GET', 'POST'])
+def upload_portal():
+    if request.method == 'POST':
+        print("\n📥 Phone sent data (POST)!")
+        return "Success!"
+        
+    elif request.method == 'GET':
+        print("\n📱 Phone requested the page (GET)!")
+        return render_template('upload.html')
+
+
 if __name__ == "__main__":
     ip = get_local_ip()
     print(f"\n🚀 Success! Your local Wi-Fi IP address is: {ip}")
-    
     
     target_url = f"http://{ip}:5000/upload"
     print(f"🔗 Target Portal: {target_url}\n")
@@ -29,7 +43,7 @@ if __name__ == "__main__":
     qr.add_data(target_url)
     qr.make(fit=True)
     
-    print("👇 SCAN THIS WITH YOUR PHONE CAMERA 👇\n")
+    print("SCAN THIS WITH YOUR PHONE CAMERA\n")
     qr.print_tty()  # Prints the QR code directly using terminal text blocks
     
     # Backup PNG for alternate way to Scan
@@ -38,5 +52,9 @@ if __name__ == "__main__":
     high_res_qr.make(fit=True)
     img = high_res_qr.make_image(fill_color="black", back_color="white")
     img.save("phone_connect_qr.png")
-    
     print("\n💾 Backup QR code image saved to your directory as: 'phone_connect_qr.png'\n")
+
+    
+    print("Starting Server\n")
+    # host='0.0.0.0' tells the OS to listen to incoming signals from the local Wi-Fi network
+    app.run(host='0.0.0.0', port=5000)
