@@ -14,3 +14,7 @@ __pycache__/
 
 # App generated files
 phone_connect_qr.png
+
+# --- Inno Setup (Installer artifacts) ---
+Output/
+*_Setup.exe
