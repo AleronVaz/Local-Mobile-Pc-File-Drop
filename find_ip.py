@@ -2,9 +2,17 @@ import socket
 import qrcode 
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
-import os  
+import os
+import sys  
 
-app = Flask(__name__)
+
+if getattr(sys, 'frozen', False):
+    # App is running bundled inside an executable container
+    template_dir = os.path.join(sys._MEIPASS, 'templates')
+    static_dir = os.path.join(sys._MEIPASS, 'static')
+    app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
+else:
+    app = Flask(__name__)
 
 #Storing in Downloads/Mobile_Files
 DOWNLOADS_PATH = os.path.join(os.path.expanduser("~"), "Downloads")
