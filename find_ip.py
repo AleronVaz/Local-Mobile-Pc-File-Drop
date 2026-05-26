@@ -3,7 +3,8 @@ import qrcode
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
 import os
-import sys  
+import sys
+import ctypes 
 
 if sys.platform == "win32":
     try:
