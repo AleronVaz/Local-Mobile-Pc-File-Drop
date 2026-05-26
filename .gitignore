@@ -2,3 +2,15 @@ venv/
 .venv/
 *.png
 Plans.txt
+
+# PyInstaller build artifacts
+build/
+dist/
+*.spec
+
+# Python cache folders
+__pycache__/
+*.pyc
+
+# App generated files
+phone_connect_qr.png
