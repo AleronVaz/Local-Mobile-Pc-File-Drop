@@ -5,6 +5,15 @@ from werkzeug.utils import secure_filename
 import os
 import sys  
 
+if sys.platform == "win32":
+    try:
+        kernel32 = ctypes.windll.kernel32
+        stdout_handle = kernel32.GetStdHandle(-11) 
+        mode = ctypes.c_ulong()
+        if kernel32.GetConsoleMode(stdout_handle, ctypes.byref(mode)):
+            kernel32.SetConsoleMode(stdout_handle, mode.value | 0x0004)
+    except Exception:
+        os.system('')
 
 if getattr(sys, 'frozen', False):
     # App is running bundled inside an executable container
